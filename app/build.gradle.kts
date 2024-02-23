@@ -41,6 +41,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -73,6 +74,9 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
 
+    //Coil
+    implementation("io.coil-kt:coil-compose:1.3.2")
+
     // Unit Testing
     testImplementation("junit:junit:4.13.2")
 
@@ -86,7 +90,6 @@ dependencies {
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.12")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
 }
 
 kapt {

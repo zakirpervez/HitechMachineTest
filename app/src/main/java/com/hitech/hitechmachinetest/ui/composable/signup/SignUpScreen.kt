@@ -1,6 +1,11 @@
 package com.hitech.hitechmachinetest.ui.composable.signup
 
+import android.Manifest
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +26,10 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,16 +40,47 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.FileProvider
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
+import com.hitech.hitechmachinetest.BuildConfig
 import com.hitech.hitechmachinetest.R
 import com.hitech.hitechmachinetest.ui.composable.common.AppRedButton
 import com.hitech.hitechmachinetest.ui.composable.common.DescriptionText
 import com.hitech.hitechmachinetest.ui.composable.common.HeaderText
 import com.hitech.hitechmachinetest.ui.composable.common.HorizontalSpacer
 import com.hitech.hitechmachinetest.ui.composable.common.RoundedTextField
+import com.hitech.hitechmachinetest.ui.utils.createImageFile
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun SignUpScreen(onNavigate: () -> Unit) {
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
+    val file = context.createImageFile()
+    val uri = FileProvider.getUriForFile(
+        context, BuildConfig.APPLICATION_ID + ".provider", file
+    )
+
+    var capturedImageUri by remember {
+        mutableStateOf<Uri>(Uri.EMPTY)
+    }
+
+    val cameraLauncher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) {
+        capturedImageUri = uri
+    }
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) {
+        if (it) {
+            Toast.makeText(context, "Camera Permission Granted", Toast.LENGTH_SHORT).show()
+            cameraLauncher.launch(uri)
+        } else {
+            Toast.makeText(context, "Camera Permission Denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -52,7 +92,6 @@ fun SignUpScreen(onNavigate: () -> Unit) {
         HorizontalSpacer(height = 4.dp)
         DescriptionText(text = stringResource(id = R.string.profile_creation_description_text))
         HorizontalSpacer(height = 16.dp)
-        val context = LocalContext.current
         Box(
             modifier = Modifier
                 .width(160.dp)
@@ -62,21 +101,27 @@ fun SignUpScreen(onNavigate: () -> Unit) {
                 )
                 .align(alignment = Alignment.CenterHorizontally)
                 .clickable(enabled = true) {
-                    Toast
-                        .makeText(context, "Launch Camera Here", Toast.LENGTH_LONG)
-                        .show()
+                    permissionLauncher.launch(Manifest.permission.CAMERA)
                 },
         ) {
-            Text(
-                modifier = Modifier.align(
-                    alignment = Alignment.Center
-                ),
-                text = stringResource(id = R.string.add_avtar_label),
-                fontWeight = FontWeight.ExtraBold,
-                textAlign = TextAlign.Center,
-                color = Color.DarkGray,
-                fontSize = 18.sp
-            )
+            if (capturedImageUri.path.isNullOrEmpty()) {
+                Text(
+                    modifier = Modifier.align(
+                        alignment = Alignment.Center
+                    ),
+                    text = stringResource(id = R.string.add_avtar_label),
+                    fontWeight = FontWeight.ExtraBold,
+                    textAlign = TextAlign.Center,
+                    color = Color.DarkGray,
+                    fontSize = 18.sp
+                )
+            } else {
+                Image(
+                    painter = rememberImagePainter(capturedImageUri),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
         HorizontalSpacer(height = 16.dp)
         RoundedTextField(
@@ -99,8 +144,7 @@ fun SignUpScreen(onNavigate: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .align(alignment = Alignment.CenterHorizontally)
-                .height(48.dp),
-            buttonText = stringResource(id = R.string.submit_text)
+                .height(48.dp), buttonText = stringResource(id = R.string.submit_text)
         ) {
             onNavigate()
         }
