@@ -1,4 +1,4 @@
-package com.hitech.hitechmachinetest
+package com.hitech.hitechmachinetest.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,8 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.hitech.hitechmachinetest.ui.composable.AppRoute
 import com.hitech.hitechmachinetest.ui.theme.HitechMachineTestTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    App()
                 }
             }
         }
@@ -30,17 +33,17 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun App() {
+    AppRoute()
 }
 
-@Preview(showBackground = true)
+@Preview(
+    showBackground = true,
+    device = "id:pixel_5"
+)
 @Composable
-fun GreetingPreview() {
+fun AppPreview() {
     HitechMachineTestTheme {
-        Greeting("Android")
+        App()
     }
 }

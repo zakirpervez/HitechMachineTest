@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">HitechMachineTest</string>
+    <string name="profile_creation_text">Profile Creation</string>
+    <string name="profile_creation_description_text">Use the form below to submit your portfolio. An email and password are required</string>
+    <string name="add_avtar_label">Tap\nto add avatar</string>
+
+    <!--Signup Form-->
+    <string name="first_name_label">First Name</string>
+    <string name="email_label">Email Address</string>
+    <string name="password_label">Password</string>
+    <string name="website_label">Website</string>
+    <string name="submit_text">Submit</string>
+
+    <!--Profile Screen-->
+    <string name="sign_in_text">Sign In</string>
+    <string name="hello_user_text">Hello, %s!</string>
+    <string name="portfolio_text">Your super awesome portfolio has been created successfully submitted! The preview below is what community will see</string>
 </resources>
