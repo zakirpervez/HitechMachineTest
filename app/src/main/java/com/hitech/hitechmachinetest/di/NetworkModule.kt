@@ -12,6 +12,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
+/**
+ * Module to provide all network related stuff.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 class NetworkModule {

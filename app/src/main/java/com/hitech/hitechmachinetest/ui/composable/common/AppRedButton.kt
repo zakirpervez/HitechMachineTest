@@ -15,6 +15,12 @@ import androidx.compose.ui.unit.dp
 import com.hitech.hitechmachinetest.R
 import com.hitech.hitechmachinetest.ui.theme.Red_40
 
+/**
+ * Represent a primary button.
+ * @param modifier: [Modifier]
+ * @param buttonText: [String]
+ * @param onButtonClick: Represent click event
+ */
 @Composable
 fun AppRedButton(modifier: Modifier, buttonText: String, onButtonClick: () -> Unit) {
     Button(modifier = modifier,

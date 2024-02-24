@@ -25,6 +25,14 @@ import androidx.compose.ui.unit.dp
 import com.hitech.hitechmachinetest.R
 import com.hitech.hitechmachinetest.ui.theme.Red_40
 
+/**
+ * Represent a common [OutlinedTextField] for the app.
+ * @param hint: [String]
+ * @param drawableEnd: [ImageVector]
+ * @param keyboardOptions: [KeyboardOptions]
+ * @param isError: [Boolean]
+ * @param onValueChange: Callback to get the value from text field.
+ */
 @Composable
 fun RoundedTextField(
     hint: String,

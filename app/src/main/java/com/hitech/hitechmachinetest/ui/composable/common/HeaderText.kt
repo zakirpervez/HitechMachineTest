@@ -1,6 +1,5 @@
 package com.hitech.hitechmachinetest.ui.composable.common
 
-import androidx.annotation.StringRes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -10,6 +9,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.hitech.hitechmachinetest.R
 
+/**
+ * Used to show a bold header text.
+ * @param text: [String]
+ */
 @Composable
 fun HeaderText(text: String) {
     Text(

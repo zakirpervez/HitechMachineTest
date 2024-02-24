@@ -11,6 +11,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.hitech.hitechmachinetest.R
 
+/**
+ * Regular text view with normal text.
+ * @param modifier: [Modifier]
+ * @param text: [String]
+ * @param color: [Color]
+ * @see [Text]
+ */
 @Composable
 fun NormalText(modifier: Modifier, text: String, color: Color = Color.DarkGray) {
     Text(

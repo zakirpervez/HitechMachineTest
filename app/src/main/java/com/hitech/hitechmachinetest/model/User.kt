@@ -4,7 +4,9 @@ import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-
+/**
+ * A DTO object used to transfer data between SignUpScreen and ProfileReviewScreen.
+ */
 @Parcelize
 data class User(
     val fullName: String,

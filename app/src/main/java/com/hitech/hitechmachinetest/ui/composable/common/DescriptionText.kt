@@ -9,6 +9,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.hitech.hitechmachinetest.R
 
+/**
+ * Used to show a small bold text for descriptive text.
+ * @param text: [String]
+ */
 @Composable
 fun DescriptionText(text: String) {
     Text(
