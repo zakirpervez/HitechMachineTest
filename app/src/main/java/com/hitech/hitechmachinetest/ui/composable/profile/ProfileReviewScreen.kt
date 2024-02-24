@@ -26,47 +26,49 @@ import com.hitech.hitechmachinetest.ui.composable.common.NormalText
 
 @Composable
 fun ProfileReviewScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(all = 16.dp)
-            .background(color = Color.White),
-        verticalArrangement = Arrangement.Top
-    ) {
-        HeaderText(text = stringResource(id = R.string.hello_user_text, "Zakir"))
-        HorizontalSpacer(height = 4.dp)
-        DescriptionText(text = stringResource(id = R.string.portfolio_text))
-        HorizontalSpacer(height = 16.dp)
-        Box(
+    Box {
+        Column(
             modifier = Modifier
-                .width(160.dp)
-                .height(220.dp)
-                .background(
-                    color = Color.LightGray, shape = RoundedCornerShape(16.dp)
-                )
-                .align(alignment = Alignment.CenterHorizontally),
-        )
-        HorizontalSpacer(height = 16.dp)
-        NormalText(
-            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-            text = stringResource(id = R.string.website_label),
-            color = Color.Blue
-        )
-        HorizontalSpacer(height = 16.dp)
-        NormalText(
-            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-            text = stringResource(id = R.string.first_name_label)
-        )
-        HorizontalSpacer(height = 16.dp)
-        NormalText(
-            modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-            text = stringResource(id = R.string.email_label)
-        )
-        HorizontalSpacer(height = 64.dp)
+                .fillMaxSize()
+                .padding(all = 16.dp)
+                .background(color = Color.White),
+            verticalArrangement = Arrangement.Top
+        ) {
+            HeaderText(text = stringResource(id = R.string.hello_user_text, "Zakir"))
+            HorizontalSpacer(height = 4.dp)
+            DescriptionText(text = stringResource(id = R.string.portfolio_text))
+            HorizontalSpacer(height = 16.dp)
+            Box(
+                modifier = Modifier
+                    .width(160.dp)
+                    .height(220.dp)
+                    .background(
+                        color = Color.LightGray, shape = RoundedCornerShape(16.dp)
+                    )
+                    .align(alignment = Alignment.CenterHorizontally),
+            )
+            HorizontalSpacer(height = 16.dp)
+            NormalText(
+                modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+                text = stringResource(id = R.string.website_label),
+                color = Color.Blue
+            )
+            HorizontalSpacer(height = 16.dp)
+            NormalText(
+                modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+                text = stringResource(id = R.string.first_name_label)
+            )
+            HorizontalSpacer(height = 16.dp)
+            NormalText(
+                modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
+                text = stringResource(id = R.string.email_label)
+            )
+        }
         AppRedButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(alignment = Alignment.CenterHorizontally)
+                .padding(16.dp)
+                .align(alignment = Alignment.BottomCenter)
                 .height(48.dp), buttonText = stringResource(id = R.string.sign_in_text)
         ) {
 
