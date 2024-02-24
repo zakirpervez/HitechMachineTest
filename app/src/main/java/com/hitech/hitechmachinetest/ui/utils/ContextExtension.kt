@@ -1,18 +1,22 @@
 package com.hitech.hitechmachinetest.ui.utils
 
 import android.content.Context
+import android.widget.Toast
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 fun Context.createImageFile(): File {
-    // Create an image file name
-    val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+    val timeStamp = SimpleDateFormat("yyyyMMdd_HHmm ss", Locale.getDefault()).format(Date())
     val imageFileName = "JPEG_" + timeStamp + "_"
-    val image = File.createTempFile(
+    return File.createTempFile(
         imageFileName, /* prefix */
         ".jpg", /* suffix */
         externalCacheDir      /* directory */
     )
-    return image
+}
+
+fun Context.showToast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }

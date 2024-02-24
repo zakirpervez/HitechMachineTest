@@ -5,7 +5,7 @@
     <string name="add_avtar_label">Tap\nto add avatar</string>
 
     <!--Signup Form-->
-    <string name="first_name_label">First Name</string>
+    <string name="full_name_label">Full Name</string>
     <string name="email_label">Email Address</string>
     <string name="password_label">Password</string>
     <string name="website_label">Website</string>

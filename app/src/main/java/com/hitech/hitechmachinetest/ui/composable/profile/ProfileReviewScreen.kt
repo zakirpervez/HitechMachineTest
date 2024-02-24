@@ -1,5 +1,7 @@
 package com.hitech.hitechmachinetest.ui.composable.profile
 
+import android.net.Uri
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,15 +19,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.hitech.hitechmachinetest.R
+import com.hitech.hitechmachinetest.model.User
 import com.hitech.hitechmachinetest.ui.composable.common.AppRedButton
 import com.hitech.hitechmachinetest.ui.composable.common.DescriptionText
 import com.hitech.hitechmachinetest.ui.composable.common.HeaderText
 import com.hitech.hitechmachinetest.ui.composable.common.HorizontalSpacer
 import com.hitech.hitechmachinetest.ui.composable.common.NormalText
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
-fun ProfileReviewScreen() {
+fun ProfileReviewScreen(user: User?) {
     Box {
         Column(
             modifier = Modifier
@@ -46,22 +52,30 @@ fun ProfileReviewScreen() {
                         color = Color.LightGray, shape = RoundedCornerShape(16.dp)
                     )
                     .align(alignment = Alignment.CenterHorizontally),
-            )
+            ) {
+                user?.imageContent?.let {
+                    Image(
+                        painter = rememberImagePainter(it),
+                        contentDescription = null,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
+            }
             HorizontalSpacer(height = 16.dp)
             NormalText(
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                text = stringResource(id = R.string.website_label),
+                text = user?.url ?: "-",
                 color = Color.Blue
             )
             HorizontalSpacer(height = 16.dp)
             NormalText(
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                text = stringResource(id = R.string.first_name_label)
+                text = user?.fullName ?: "-"
             )
             HorizontalSpacer(height = 16.dp)
             NormalText(
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                text = stringResource(id = R.string.email_label)
+                text = user?.email ?: "-"
             )
         }
         AppRedButton(
@@ -79,5 +93,12 @@ fun ProfileReviewScreen() {
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreenPreview() {
-    ProfileReviewScreen()
+    val user = User(
+        fullName = stringResource(id = R.string.app_name),
+        email = "hitech@example.com",
+        password = "hitest@123",
+        url = "https://www.hitechtalents.com/",
+        imageContent = Uri.parse("https://www.hitechtalents.com/"),
+    )
+    ProfileReviewScreen(user)
 }

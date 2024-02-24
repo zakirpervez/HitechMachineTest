@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -36,25 +37,32 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.hitech.hitechmachinetest.BuildConfig
 import com.hitech.hitechmachinetest.R
+import com.hitech.hitechmachinetest.model.User
 import com.hitech.hitechmachinetest.ui.composable.common.AppRedButton
 import com.hitech.hitechmachinetest.ui.composable.common.DescriptionText
 import com.hitech.hitechmachinetest.ui.composable.common.HeaderText
 import com.hitech.hitechmachinetest.ui.composable.common.HorizontalSpacer
 import com.hitech.hitechmachinetest.ui.composable.common.RoundedTextField
 import com.hitech.hitechmachinetest.ui.utils.createImageFile
+import com.hitech.hitechmachinetest.ui.utils.showToast
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-fun SignUpScreen(onNavigate: () -> Unit) {
+fun SignUpScreen(
+    viewModel: SignupViewModel,
+    onNavigate: (User) -> Unit
+) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
     val file = context.createImageFile()
@@ -68,13 +76,14 @@ fun SignUpScreen(onNavigate: () -> Unit) {
 
     val cameraLauncher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) {
         capturedImageUri = uri
+        viewModel.imageUri = uri
     }
+
 
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) {
         if (it) {
-            Toast.makeText(context, "Camera Permission Granted", Toast.LENGTH_SHORT).show()
             cameraLauncher.launch(uri)
         } else {
             Toast.makeText(context, "Camera Permission Denied", Toast.LENGTH_SHORT).show()
@@ -125,22 +134,44 @@ fun SignUpScreen(onNavigate: () -> Unit) {
             }
             HorizontalSpacer(height = 16.dp)
             RoundedTextField(
-                hint = stringResource(id = R.string.first_name_label),
-                drawableEnd = Icons.Filled.Person
+                hint = stringResource(id = R.string.full_name_label),
+                drawableEnd = Icons.Filled.Person,
+                onValueChange = { input ->
+                    viewModel.fullName = input
+                },
+                isError = viewModel.isValidName(),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
             )
             HorizontalSpacer(height = 16.dp)
             RoundedTextField(
-                hint = stringResource(id = R.string.email_label), drawableEnd = Icons.Filled.Email
+                hint = stringResource(id = R.string.email_label),
+                drawableEnd = Icons.Filled.Email,
+                onValueChange = { input ->
+                    viewModel.email = input
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                isError = viewModel.isValidEmail()
             )
             HorizontalSpacer(height = 16.dp)
             RoundedTextField(
-                hint = stringResource(id = R.string.password_label), drawableEnd = Icons.Filled.Lock
+                hint = stringResource(id = R.string.password_label),
+                drawableEnd = Icons.Filled.Lock,
+                onValueChange = { input ->
+                    viewModel.password = input
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                isError = viewModel.isValidPassword()
             )
             HorizontalSpacer(height = 16.dp)
             RoundedTextField(
-                hint = stringResource(id = R.string.website_label), drawableEnd = Icons.Filled.Menu
+                hint = stringResource(id = R.string.website_label),
+                drawableEnd = Icons.Filled.Menu,
+                onValueChange = { input ->
+                    viewModel.url = input
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
+                isError = viewModel.isValidUrl()
             )
-            HorizontalSpacer(height = 64.dp)
         }
         AppRedButton(
             modifier = Modifier
@@ -149,15 +180,25 @@ fun SignUpScreen(onNavigate: () -> Unit) {
                 .align(Alignment.BottomCenter)
                 .height(48.dp), buttonText = stringResource(id = R.string.submit_text)
         ) {
-            onNavigate()
+            viewModel.imageUri = capturedImageUri
+            val isValid =
+                viewModel.isValidName() && viewModel.isValidEmail() && viewModel.isValidPassword() && viewModel.isValidUrl() && viewModel.isValidImageUri()
+
+            if (isValid) {
+                onNavigate(viewModel.getUser())
+            } else {
+                context.showToast("Please enter valid data")
+            }
         }
     }
-
-
 }
 
 @Preview(showBackground = true)
 @Composable
 fun SignUpScreenPreview() {
-    SignUpScreen(onNavigate = {})
+    val viewModel = hiltViewModel<SignupViewModel>()
+    SignUpScreen(
+        onNavigate = {},
+        viewModel = viewModel
+    )
 }

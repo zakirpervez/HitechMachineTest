@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
     id("com.google.dagger.hilt.android")
     kotlin("kapt")
     id("io.gitlab.arturbosch.detekt")
@@ -68,7 +69,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
 
     // Compose Navigation
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Hilt dagger
     implementation("com.google.dagger:hilt-android:2.50")
@@ -76,6 +77,9 @@ dependencies {
 
     //Coil
     implementation("io.coil-kt:coil-compose:1.3.2")
+
+    // Gson
+    implementation("com.google.code.gson:gson:2.10.1")
 
     // Unit Testing
     testImplementation("junit:junit:4.13.2")
