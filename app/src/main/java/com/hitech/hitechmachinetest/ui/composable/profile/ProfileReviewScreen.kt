@@ -1,6 +1,5 @@
 package com.hitech.hitechmachinetest.ui.composable.profile
 
-import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,25 +12,31 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.hitech.hitechmachinetest.R
-import com.hitech.hitechmachinetest.model.User
 import com.hitech.hitechmachinetest.ui.composable.common.AppRedButton
 import com.hitech.hitechmachinetest.ui.composable.common.DescriptionText
 import com.hitech.hitechmachinetest.ui.composable.common.HeaderText
 import com.hitech.hitechmachinetest.ui.composable.common.HorizontalSpacer
 import com.hitech.hitechmachinetest.ui.composable.common.NormalText
+import com.hitech.hitechmachinetest.ui.composable.common.ProgressIndicator
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
-fun ProfileReviewScreen(user: User?) {
+fun ProfileReviewScreen(profileViewModel: ProfileViewModel) {
+    val usersState = profileViewModel.usersLiveData.observeAsState(null)
+    val loadingState = profileViewModel.loaderLiveData.observeAsState(null)
+//    val errorState = profileViewModel.errorLiveData.observeAsState(null)
+
     Box {
         Column(
             modifier = Modifier
@@ -40,7 +45,12 @@ fun ProfileReviewScreen(user: User?) {
                 .background(color = Color.White),
             verticalArrangement = Arrangement.Top
         ) {
-            HeaderText(text = stringResource(id = R.string.hello_user_text, "Zakir"))
+            HeaderText(
+                text = stringResource(
+                    id = R.string.hello_user_text,
+                    profileViewModel.fullName.value!!
+                )
+            )
             HorizontalSpacer(height = 4.dp)
             DescriptionText(text = stringResource(id = R.string.portfolio_text))
             HorizontalSpacer(height = 16.dp)
@@ -53,7 +63,7 @@ fun ProfileReviewScreen(user: User?) {
                     )
                     .align(alignment = Alignment.CenterHorizontally),
             ) {
-                user?.imageContent?.let {
+                profileViewModel.imageUri.value?.let {
                     Image(
                         painter = rememberImagePainter(it),
                         contentDescription = null,
@@ -64,18 +74,18 @@ fun ProfileReviewScreen(user: User?) {
             HorizontalSpacer(height = 16.dp)
             NormalText(
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                text = user?.url ?: "-",
+                text = profileViewModel.url.value ?: "-",
                 color = Color.Blue
             )
             HorizontalSpacer(height = 16.dp)
             NormalText(
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                text = user?.fullName ?: "-"
+                text = profileViewModel.fullName.value ?: "-"
             )
             HorizontalSpacer(height = 16.dp)
             NormalText(
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                text = user?.email ?: "-"
+                text = profileViewModel.email.value ?: "-"
             )
         }
         AppRedButton(
@@ -83,9 +93,35 @@ fun ProfileReviewScreen(user: User?) {
                 .fillMaxWidth()
                 .padding(16.dp)
                 .align(alignment = Alignment.BottomCenter)
-                .height(48.dp), buttonText = stringResource(id = R.string.sign_in_text)
+                .height(48.dp),
+            buttonText = stringResource(id = R.string.sign_in_text)
         ) {
+            profileViewModel.fetchUsers()
+        }
+    }
 
+    loadingState.value?.apply {
+        if (this) {
+            ProgressIndicator()
+        }
+    }
+
+//    errorState.value?.apply {
+//        Error(
+//            title = stringResource(id = R.string.no_data_found),
+//            content = this,
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .background(color = TurmericYellow)
+//        )
+//    }
+
+    usersState.value?.apply {
+        users?.let {
+            val user = profileViewModel.getRandomUser(users)
+            profileViewModel.fullName.value = user.name
+            profileViewModel.email.value = user.email
+            profileViewModel.url.value = user.website
         }
     }
 }
@@ -93,12 +129,6 @@ fun ProfileReviewScreen(user: User?) {
 @Preview(showBackground = true)
 @Composable
 fun ProfileScreenPreview() {
-    val user = User(
-        fullName = stringResource(id = R.string.app_name),
-        email = "hitech@example.com",
-        password = "hitest@123",
-        url = "https://www.hitechtalents.com/",
-        imageContent = Uri.parse("https://www.hitechtalents.com/"),
-    )
-    ProfileReviewScreen(user)
+    val profileViewModel: ProfileViewModel = hiltViewModel()
+    ProfileReviewScreen(profileViewModel)
 }

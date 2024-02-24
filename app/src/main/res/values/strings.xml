@@ -14,5 +14,6 @@
     <!--Profile Screen-->
     <string name="sign_in_text">Sign In</string>
     <string name="hello_user_text">Hello, %s!</string>
+    <string name="no_data_found">No data found</string>
     <string name="portfolio_text">Your super awesome portfolio has been created successfully submitted! The preview below is what community will see</string>
 </resources>

@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hitech.hitechmachinetest.model.Router
 import com.hitech.hitechmachinetest.ui.composable.profile.ProfileReviewScreen
+import com.hitech.hitechmachinetest.ui.composable.profile.ProfileViewModel
 import com.hitech.hitechmachinetest.ui.composable.signup.SignUpScreen
 import com.hitech.hitechmachinetest.ui.composable.signup.SignupViewModel
 import com.hitech.hitechmachinetest.ui.composable.splash.SplashScreen
@@ -44,7 +45,15 @@ fun AppRoute() {
                 route = Router.ProfileReviewScreen.route
             ) {
                 val user = sharedViewModel.user
-                ProfileReviewScreen(user = user)
+                val profileViewModel: ProfileViewModel = hiltViewModel()
+                user?.let {
+                    profileViewModel.fullName.value = it.fullName
+                    profileViewModel.email.value = it.email
+                    profileViewModel.password.value = it.password
+                    profileViewModel.url.value = it.url
+                    profileViewModel.imageUri.value = it.imageUri
+                }
+                ProfileReviewScreen(profileViewModel)
             }
         },
     )

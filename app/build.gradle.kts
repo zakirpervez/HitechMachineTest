@@ -25,12 +25,20 @@ android {
     }
 
     buildTypes {
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            )
+            buildConfigField("String", "BASE_URL", project.properties["BASE_URL"].toString())
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", project.properties["BASE_URL"].toString())
         }
     }
     compileOptions {
@@ -68,6 +76,10 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
 
+    // ViewModel and LiveData
+    implementation("androidx.compose.runtime:runtime-livedata")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    
     // Compose Navigation
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
@@ -78,8 +90,13 @@ dependencies {
     //Coil
     implementation("io.coil-kt:coil-compose:1.3.2")
 
-    // Gson
-    implementation("com.google.code.gson:gson:2.10.1")
+    // Rest client
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+
+    // Logging
+    implementation("com.jakewharton.timber:timber:5.0.1")
 
     // Unit Testing
     testImplementation("junit:junit:4.13.2")

@@ -50,7 +50,7 @@ class SignupViewModel @Inject constructor() : ViewModel() {
             email = email,
             password = password,
             url = url,
-            imageContent = imageUri
+            imageUri = imageUri
         )
     }
 }
