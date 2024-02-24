@@ -23,7 +23,7 @@ class ProfileViewModel @Inject constructor(private val repository: Repository) :
     private val loaderMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val loaderLiveData: MutableLiveData<Boolean> = loaderMutableLiveData
     private val errorMutableLiveData = MutableLiveData<String>()
-//    val errorLiveData: LiveData<String> = errorMutableLiveData
+    val errorLiveData: LiveData<String> = errorMutableLiveData
 
     val fullName: MutableLiveData<String> = MutableLiveData()
     val email: MutableLiveData<String> = MutableLiveData()

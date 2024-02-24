@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignupViewModel @Inject constructor() : ViewModel() {
-
     var url: String = ""
     var email: String = ""
     var fullName: String = ""
