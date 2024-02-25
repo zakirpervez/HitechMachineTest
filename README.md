@@ -78,7 +78,7 @@ guidelines which I had in my mind. *
 
 <h3>Architecture Used</h3>
 This is application is built using a MVVM architecture.
-<img src="./screenshots/mvvm_architecture.png" width="720px" height="640" alt="mvvm_architecture"/>
+<img src="./screenshots/mvvm_architecture.png" width="960px" height="720" alt="mvvm_architecture"/>
 <h3>Testing</h3>
 <ol>
 <li>Unit Testing: Unit test cases are added.</li>
@@ -114,17 +114,17 @@ This is application is built using a MVVM architecture.
 <ol>
 <li>
 Splash Screen: Stay for 3 seconds and then navigate to Home Screen.<br>
-<img src="./screenshots/splash_screen.png" width="360px" height="640px" alt="splash_screen"/>
+<img src="./screenshots/splash_screen.jpeg" width="540" height="1170" alt="splash_screen"/>
 </li>
 
 <li>
 Signup Screen: Shows a signup form which has the validation. Once user passes all validation this signup form data is transfer to Profile Review Screen using SharedViewModel<br>
-<img src="./screenshots/signup_screen.png" width="360px" height="640px" alt="Signup_Screen"/>
+<img src="./screenshots/signup_screen.jpeg" width="540" height="1170" alt="Signup_Screen"/>
 </li>
 
 <li>
 Profile Review Screen: Show the data which is coming from  signup screen and I am callig the JsonPlaceHolder users api on click of sing in button to updated the user data<br>
-<img src="./screenshots/profile_review_screen.png" width="360px" height="640px" alt="profile_review_screen"/>
+<img src="./screenshots/profile_review_screen.jpeg" width="540" height="1170" alt="profile_review_screen"/>
 </li>
 </ol>
 
