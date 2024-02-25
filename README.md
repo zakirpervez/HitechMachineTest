@@ -102,7 +102,7 @@ This is application is built using a MVVM architecture.
 <li><b>detekt:</b><p> Detekt is a static code analysis tool for Kotlin that helps developers identify issues and enforce coding standards in Kotlin codebases. Similar to Lint for Android, Detekt analyzes Kotlin code for various issues, such as complexity, code smells, potential bugs, and anti-patterns. It provides a set of configurable rules to detect issues and can be customized to match the coding standards and guidelines of a project.</p></li>
 <li><b>leak canary:</b>
 <p>LeakCanary is a memory leak detection library for Android applications. It helps developers identify and diagnose memory leaks in their apps. Memory leaks can lead to increased memory consumption and application crashes, so LeakCanary is a valuable tool for finding and fixing such issues. It automatically detects and reports memory leaks, providing detailed information about the leaking objects and their references, making it easier to address the problem.</p>
-<img src="" alt="mvvm">
+<img src="./screenshots/leak_canary.jpeg" width="540" height="1170" alt="leak_canary">
 </li>
 <li><b>Timber:</b><p>Timber is a popular logging library for Android applications. It provides a simple and efficient way to log messages and debug information in your Android app. Timber offers several benefits over the standard Android logging methods</p></li>
 </ol>
@@ -113,17 +113,17 @@ This is application is built using a MVVM architecture.
 
 <ol>
 <li>
-Splash Screen: Stay for 3 seconds and then navigate to Home Screen.<br>
+Splash Screen: Pause for a duration of 3 seconds before transitioning to the Signup Screen..<br>
 <img src="./screenshots/splash_screen.jpeg" width="540" height="1170" alt="splash_screen"/>
 </li>
 
 <li>
-Signup Screen: Shows a signup form which has the validation. Once user passes all validation this signup form data is transfer to Profile Review Screen using SharedViewModel<br>
+Signup Screen: Present a signup form featuring validation checks. Once the user successfully passes all validations, seamlessly transmit the signup form data to the Profile Review Screen utilizing a SharedViewModel for efficient communication.<br><br>
 <img src="./screenshots/signup_screen.jpeg" width="540" height="1170" alt="Signup_Screen"/>
 </li>
 
 <li>
-Profile Review Screen: Show the data which is coming from  signup screen and I am callig the JsonPlaceHolder users api on click of sing in button to updated the user data<br>
+Profile Review Screen: Display the information originating from the signup screen, and upon clicking the sign-in button, initiate a call to the JsonPlaceHolder users API to refresh and synchronize the user data.<br><br>
 <img src="./screenshots/profile_review_screen.jpeg" width="540" height="1170" alt="profile_review_screen"/>
 </li>
 </ol>
