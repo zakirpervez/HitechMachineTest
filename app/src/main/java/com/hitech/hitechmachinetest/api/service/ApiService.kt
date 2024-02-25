@@ -10,5 +10,5 @@ import retrofit2.http.GET
 interface ApiService {
     /** Fetch the users from JsonPlaceHolder Server. */
     @GET("users")
-    suspend fun fetchUsers(): Response<UserResponse>
+    suspend fun fetchUsers(): Response<List<UserResponse>?>
 }

@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.hitech.hitechmachinetest.api.Repository
 import com.hitech.hitechmachinetest.api.entities.ApiResult
 import com.hitech.hitechmachinetest.api.entities.UserResponse
-import com.hitech.hitechmachinetest.api.entities.UserResponseItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -18,19 +17,18 @@ import kotlin.random.Random
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
-    private val usersMutableLiveData = MutableLiveData<UserResponse?>()
-    val usersLiveData: LiveData<UserResponse?> = usersMutableLiveData
+    private val usersMutableLiveData = MutableLiveData<List<UserResponse>?>()
+    val usersLiveData: LiveData<List<UserResponse>?> = usersMutableLiveData
     private val loaderMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val loaderLiveData: MutableLiveData<Boolean> = loaderMutableLiveData
     private val errorMutableLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> = errorMutableLiveData
 
-    val fullName: MutableLiveData<String> = MutableLiveData()
-    val email: MutableLiveData<String> = MutableLiveData()
-    val password: MutableLiveData<String> = MutableLiveData()
-    val url: MutableLiveData<String> = MutableLiveData()
-    val imageUri: MutableLiveData<Uri> = MutableLiveData()
-
+    var fullName: MutableLiveData<String> = MutableLiveData("")
+    var email: MutableLiveData<String> = MutableLiveData("")
+    var password: MutableLiveData<String> = MutableLiveData("")
+    var url: MutableLiveData<String> = MutableLiveData("")
+    var imageUri: MutableLiveData<Uri> = MutableLiveData(Uri.EMPTY)
 
     /**
      * Fetch the users from the server.
@@ -38,9 +36,12 @@ class ProfileViewModel @Inject constructor(private val repository: Repository) :
      */
     fun fetchUsers() = viewModelScope.launch(Dispatchers.IO) {
         loaderLiveData.postValue(true)
-        when (val response = async { repository.fetchUsers() }.await()) {
-            is ApiResult.Success<UserResponse> -> {
-                usersMutableLiveData.postValue(response.data)
+        val response = async { repository.fetchUsers() }.await()
+        when (response) {
+            is ApiResult.Success -> {
+                response.data?.let {
+                    usersMutableLiveData.postValue(it)
+                }
                 loaderLiveData.postValue(false)
             }
 
@@ -51,7 +52,7 @@ class ProfileViewModel @Inject constructor(private val repository: Repository) :
         }
     }
 
-    fun getRandomUser(users: List<UserResponseItem?>): UserResponseItem {
+    fun getRandomUser(users: List<UserResponse?>): UserResponse {
         val index = Random.nextInt(users.size)
         return users[index]!!
     }

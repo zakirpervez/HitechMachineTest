@@ -49,7 +49,7 @@ class ProfileViewModelTest {
         viewModel.fetchUsers()
         viewModel.usersLiveData.observeForever {
             assert(it != null)
-            assert(it?.users?.size == 2)
+            assert(it?.size == 2)
         }
     }
 
@@ -64,9 +64,8 @@ class ProfileViewModelTest {
 
     @Test
     fun testGetRandomUser() {
-        val userResponse = MockDataHelper.getUsersMockData()
-        val usersList = userResponse.users!!
-        val randomUser = viewModel.getRandomUser(usersList)
-        assertTrue(usersList.contains(randomUser))
+        val users = MockDataHelper.getUsersMockData()
+        val randomUser = viewModel.getRandomUser(users)
+        assertTrue(users.contains(randomUser))
     }
 }

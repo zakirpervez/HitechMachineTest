@@ -37,6 +37,13 @@ fun ProfileReviewScreen(profileViewModel: ProfileViewModel) {
     val loadingState = profileViewModel.loaderLiveData.observeAsState(null)
 //    val errorState = profileViewModel.errorLiveData.observeAsState(null)
 
+    usersState.value?.apply {
+        val user = profileViewModel.getRandomUser(this)
+        profileViewModel.fullName.value = user.name!!
+        profileViewModel.email.value = user.email!!
+        profileViewModel.url.value = user.website!!
+    }
+
     Box {
         Column(
             modifier = Modifier
@@ -63,7 +70,7 @@ fun ProfileReviewScreen(profileViewModel: ProfileViewModel) {
                     )
                     .align(alignment = Alignment.CenterHorizontally),
             ) {
-                profileViewModel.imageUri.value?.let {
+                profileViewModel.imageUri.value.let {
                     Image(
                         painter = rememberImagePainter(it),
                         contentDescription = null,
@@ -74,18 +81,18 @@ fun ProfileReviewScreen(profileViewModel: ProfileViewModel) {
             HorizontalSpacer(height = 16.dp)
             NormalText(
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                text = profileViewModel.url.value ?: "-",
+                text = profileViewModel.url.value!!,
                 color = Color.Blue
             )
             HorizontalSpacer(height = 16.dp)
             NormalText(
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                text = profileViewModel.fullName.value ?: "-"
+                text = profileViewModel.fullName.value!!
             )
             HorizontalSpacer(height = 16.dp)
             NormalText(
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
-                text = profileViewModel.email.value ?: "-"
+                text = profileViewModel.email.value!!
             )
         }
         AppRedButton(
@@ -115,15 +122,6 @@ fun ProfileReviewScreen(profileViewModel: ProfileViewModel) {
 //                .background(color = TurmericYellow)
 //        )
 //    }
-
-    usersState.value?.apply {
-        users?.let {
-            val user = profileViewModel.getRandomUser(users)
-            profileViewModel.fullName.value = user.name
-            profileViewModel.email.value = user.email
-            profileViewModel.url.value = user.website
-        }
-    }
 }
 
 @Preview(showBackground = true)

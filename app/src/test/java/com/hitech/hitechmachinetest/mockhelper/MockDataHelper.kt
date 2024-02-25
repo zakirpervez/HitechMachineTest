@@ -1,11 +1,11 @@
 package com.hitech.hitechmachinetest.mockhelper
 
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.hitech.hitechmachinetest.api.entities.UserResponse
 
 object MockDataHelper {
-    private const val USER_RESPONSE = "{\n" +
-            "  \"UserResponse\": [\n" +
+    private const val USER_RESPONSE = "[\n" +
             "    {\n" +
             "      \"id\": 1,\n" +
             "      \"name\": \"Leanne Graham\",\n" +
@@ -52,10 +52,10 @@ object MockDataHelper {
             "        \"bs\": \"synergize scalable supply-chains\"\n" +
             "      }\n" +
             "    }\n" +
-            "  ]\n" +
-            "}"
+            "  ]\n"
 
-    fun getUsersMockData(): UserResponse {
-        return Gson().fromJson(USER_RESPONSE, UserResponse::class.java)
+    fun getUsersMockData(): List<UserResponse> {
+        val userListType = object : TypeToken<List<UserResponse>>() {}.type
+        return Gson().fromJson(USER_RESPONSE, userListType)
     }
 }

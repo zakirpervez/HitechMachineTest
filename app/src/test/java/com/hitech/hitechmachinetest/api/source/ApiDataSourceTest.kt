@@ -24,7 +24,7 @@ class ApiDataSourceTest {
         val result = apiDataSource.fetchUsers()
         coVerify { apiService.fetchUsers() }
         assert(result is ApiResult.Success)
-        assert((result as ApiResult.Success<UserResponse>).data.users?.size == 2)
+        assert((result as ApiResult.Success<List<UserResponse>?>).data?.size == 2)
     }
 
     @Test
