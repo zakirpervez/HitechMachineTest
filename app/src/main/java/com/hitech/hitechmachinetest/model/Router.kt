@@ -1,6 +1,5 @@
 package com.hitech.hitechmachinetest.model
 
-
 /**
  * An Application router which contains the path for screen.
  */

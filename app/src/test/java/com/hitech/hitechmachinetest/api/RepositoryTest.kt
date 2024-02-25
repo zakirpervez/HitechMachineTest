@@ -1,6 +1,7 @@
 package com.hitech.hitechmachinetest.api
 
 import com.hitech.hitechmachinetest.api.entities.ApiResult
+import com.hitech.hitechmachinetest.api.service.ERROR_UNKNOWN
 import com.hitech.hitechmachinetest.api.source.ApiDataSource
 import com.hitech.hitechmachinetest.mockhelper.MockDataHelper
 import io.mockk.coEvery
@@ -8,7 +9,6 @@ import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
-import com.hitech.hitechmachinetest.api.service.ERROR_UNKNOWN
 
 class RepositoryTest {
     private val apiDataSource = mockk<ApiDataSource>()

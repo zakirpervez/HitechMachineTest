@@ -28,7 +28,7 @@ fun Error(
     title: String,
     content: String,
     @DrawableRes drawableId: Int = R.drawable.baseline_playlist_remove_24,
-    modifier: Modifier,
+    modifier: Modifier
 ) {
     Column(
         modifier = modifier,

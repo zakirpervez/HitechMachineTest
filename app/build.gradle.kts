@@ -6,6 +6,7 @@ plugins {
     kotlin("kapt")
     id("io.gitlab.arturbosch.detekt")
     id("de.mobilej.unmock")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 android {
@@ -29,7 +30,8 @@ android {
         debug {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
             buildConfigField("String", "BASE_URL", project.properties["BASE_URL"].toString())
         }
@@ -37,7 +39,8 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
             buildConfigField("String", "BASE_URL", project.properties["BASE_URL"].toString())
         }
@@ -93,7 +96,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
 
-    //Coil
+    // Coil
     implementation("io.coil-kt:coil-compose:1.3.2")
 
     // Rest client

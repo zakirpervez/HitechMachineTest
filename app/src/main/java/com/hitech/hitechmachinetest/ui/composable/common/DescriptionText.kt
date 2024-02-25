@@ -19,7 +19,7 @@ fun DescriptionText(text: String) {
         text = text,
         fontWeight = FontWeight.Bold,
         color = Color.LightGray,
-        fontSize = 12.sp,
+        fontSize = 12.sp
     )
 }
 

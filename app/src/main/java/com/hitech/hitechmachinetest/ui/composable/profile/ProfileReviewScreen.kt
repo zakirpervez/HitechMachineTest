@@ -66,9 +66,10 @@ fun ProfileReviewScreen(profileViewModel: ProfileViewModel) {
                     .width(160.dp)
                     .height(220.dp)
                     .background(
-                        color = Color.LightGray, shape = RoundedCornerShape(16.dp)
+                        color = Color.LightGray,
+                        shape = RoundedCornerShape(16.dp)
                     )
-                    .align(alignment = Alignment.CenterHorizontally),
+                    .align(alignment = Alignment.CenterHorizontally)
             ) {
                 profileViewModel.imageUri.value.let {
                     Image(

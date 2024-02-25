@@ -23,7 +23,7 @@ fun ProgressIndicator() {
         modifier = Modifier
             .fillMaxWidth()
             .background(Color.Transparent),
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
         val strokeWidth = 4.dp
         CircularProgressIndicator(
@@ -38,7 +38,7 @@ fun ProgressIndicator() {
                 .background(color = Red_40)
                 .padding(8.dp),
             color = Color.White,
-            strokeWidth = strokeWidth,
+            strokeWidth = strokeWidth
         )
     }
 }

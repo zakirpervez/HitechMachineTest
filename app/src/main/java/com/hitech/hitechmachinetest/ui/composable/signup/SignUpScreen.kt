@@ -67,7 +67,9 @@ fun SignUpScreen(
     val context = LocalContext.current
     val file = context.createImageFile()
     val uri = FileProvider.getUriForFile(
-        context, BuildConfig.APPLICATION_ID + ".provider", file
+        context,
+        BuildConfig.APPLICATION_ID + ".provider",
+        file
     )
 
     var capturedImageUri by remember {
@@ -78,7 +80,6 @@ fun SignUpScreen(
         capturedImageUri = uri
         viewModel.imageUri = uri
     }
-
 
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -95,7 +96,9 @@ fun SignUpScreen(
                 .fillMaxSize()
                 .padding(all = 16.dp)
                 .background(color = Color.White)
-                .verticalScroll(scrollState), verticalArrangement = Arrangement.Top
+                .verticalScroll(scrollState),
+
+            verticalArrangement = Arrangement.Top
         ) {
             HeaderText(text = stringResource(id = R.string.profile_creation_text))
             HorizontalSpacer(height = 4.dp)
@@ -106,12 +109,13 @@ fun SignUpScreen(
                     .width(160.dp)
                     .height(220.dp)
                     .background(
-                        color = Color.LightGray, shape = RoundedCornerShape(16.dp)
+                        color = Color.LightGray,
+                        shape = RoundedCornerShape(16.dp)
                     )
                     .align(alignment = Alignment.CenterHorizontally)
                     .clickable(enabled = true) {
                         permissionLauncher.launch(Manifest.permission.CAMERA)
-                    },
+                    }
             ) {
                 if (capturedImageUri.path.isNullOrEmpty()) {
                     Text(
@@ -178,7 +182,9 @@ fun SignUpScreen(
                 .fillMaxWidth()
                 .padding(16.dp)
                 .align(Alignment.BottomCenter)
-                .height(48.dp), buttonText = stringResource(id = R.string.submit_text)
+                .height(48.dp),
+
+            buttonText = stringResource(id = R.string.submit_text)
         ) {
             viewModel.imageUri = capturedImageUri
             val isValid =

@@ -15,16 +15,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.hitech.hitechmachinetest.R
-import com.hitech.hitechmachinetest.ui.theme.Purple80
 import com.hitech.hitechmachinetest.ui.theme.Red_40
 import kotlinx.coroutines.delay
-
 
 private const val SPLASH_DELAY = 3000L
 
 @Composable
 fun SplashScreen(onNavigate: () -> Unit) {
-
     LaunchedEffect(key1 = Unit, block = {
         delay(SPLASH_DELAY)
         onNavigate()
@@ -35,12 +32,10 @@ fun SplashScreen(onNavigate: () -> Unit) {
             .fillMaxSize()
             .background(color = Red_40),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(
-                id = R.drawable.ic_launcher_foreground,
-            ),
+            painter = painterResource(id = R.drawable.ic_launcher_foreground),
             contentDescription = stringResource(id = R.string.app_name),
             modifier = Modifier
                 .aspectRatio(0.4f, true)

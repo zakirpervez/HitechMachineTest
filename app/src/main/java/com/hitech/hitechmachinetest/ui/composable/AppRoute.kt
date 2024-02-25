@@ -25,7 +25,7 @@ fun AppRoute() {
                 SplashScreen {
                     navController.popBackStack()
                     navController.navigate(
-                        route = Router.SignUpScreen.route,
+                        route = Router.SignUpScreen.route
                     )
                 }
             }
@@ -36,7 +36,7 @@ fun AppRoute() {
                     sharedViewModel.user = user
                     navController.popBackStack()
                     navController.navigate(
-                        route = Router.ProfileReviewScreen.route,
+                        route = Router.ProfileReviewScreen.route
                     )
                 }
             }
@@ -55,7 +55,7 @@ fun AppRoute() {
                 }
                 ProfileReviewScreen(profileViewModel)
             }
-        },
+        }
     )
 }
 

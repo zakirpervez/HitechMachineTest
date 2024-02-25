@@ -25,7 +25,7 @@ fun NormalText(modifier: Modifier, text: String, color: Color = Color.DarkGray) 
         text = text,
         fontWeight = FontWeight.Bold,
         color = color,
-        fontSize = 12.sp,
+        fontSize = 12.sp
     )
 }
 

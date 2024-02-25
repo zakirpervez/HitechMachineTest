@@ -23,14 +23,20 @@ import com.hitech.hitechmachinetest.ui.theme.Red_40
  */
 @Composable
 fun AppRedButton(modifier: Modifier, buttonText: String, onButtonClick: () -> Unit) {
-    Button(modifier = modifier,
+    Button(
+        modifier = modifier,
         colors = ButtonDefaults.buttonColors(
             containerColor = Red_40
-        ), shape = RoundedCornerShape(8.dp), onClick = {
+        ),
+
+        shape = RoundedCornerShape(8.dp),
+        onClick = {
             onButtonClick()
-        }) {
+        }
+    ) {
         Text(
-            text = buttonText, color = Color.White
+            text = buttonText,
+            color = Color.White
         )
     }
 }
@@ -41,7 +47,9 @@ fun AppButtonPreview() {
     AppRedButton(
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp), onButtonClick = {}, buttonText = stringResource(id = R.string.app_name)
+            .height(48.dp),
+
+        onButtonClick = {},
+        buttonText = stringResource(id = R.string.app_name)
     )
 }
-
