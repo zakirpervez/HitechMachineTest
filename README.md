@@ -78,7 +78,7 @@ guidelines which I had in my mind. *
 
 <h3>Architecture Used</h3>
 This is application is built using a MVVM architecture.
-<img src="./screenshots/mvvm_architecture.png" width="360px" height="640px" alt="mvvm_architecture"/>
+<img src="./screenshots/mvvm_architecture.png" width="720px" height="640" alt="mvvm_architecture"/>
 <h3>Testing</h3>
 <ol>
 <li>Unit Testing: Unit test cases are added.</li>
